@@ -1,0 +1,204 @@
+REPORT_LP0
+Team G12.
+
+
+Executive summary
+-----------------
+A graph G is called Eulerian if it is connected and the degree of every vertex is an even number. It is known that such graphs always have a tour
+(a cycle that may not be simple) that goes through every edge of the graph exactly once. Such a tour (sometimes called a circuit) is called an Euler tour. 
+If the graph is connected, and it has exactly 2 nodes of odd degree, then it has an Euler Path connecting these two nodes,
+that includes all the edges of the graph exactly once. In this project, we wrote a code that finds an Euler tour or an Euler Path in a given graph. 
+The algorithm we used for implementation is Hierholzer's algorithm. Our target runtime for this algorithm is O(|E|), where E is the number of edges in the graph.
+
+Problem statement 
+-----------------
+Our motivation to do this project is to find effectively the Euler path and Euler Tour in a graph using Hierholzer's algorithm.
+The target run time for this algorithm is O(E).
+
+Pseudocode 
+-----------
+
+(1) Edges are stored in a doubly linked list class called Nodes and ‘temp’ is the pointer pointing to the start node of the linked list.
+The function ‘ADD’ adds an edge to the linked list. 
+The first tour will find a cycle arbitrarily.
+In the first tour itself we will find the vertices with untraversed edges and will store it in a linked list.
+Then we will start the sub tours based on vertices in the untraversed linked list. 
+Each vertex will contain the node information it possess so that we can use this for efficiently merging the sub tours.
+
+findEulerTour(Graph g){
+	vertex <= points to 1st vertex
+	Node temp <= head of doublyLinkedList 
+	Edge unvisitedEdge <= getUnvisitedEdge(vertex)
+	ADD edge to linked list
+	/* Finding a cycle arbitrarily */ 
+	while (null != unvisitedEdge) {
+		
+		Vertex otherEndVertex <= unvisitedEdge.otherEnd(vertex ) //getOtherEnd Vertex Of unvisitedEdge.
+		Edge edge <= getUnvisitedEdge(otherEndVertex)
+		ADD unvisitedEdge to linked list.
+		unvisitedEdge <=edge.
+		vertex <= otherEndVertex.
+		Temp <= next node 
+		//add vertex to unvistedEdgeVertexList if the vertex still have unvisited edges.
+		If(otherEndVertex.hasUnvisitedEdge)
+			unvistedEdgeVertexList.add(otherEndVertex)
+		
+	}
+
+	//find subTour based on the vertex entry in the unvistedEdgeVertexList.
+	While (unvisitedVertexList.size() > 0) {
+		vertex unvisitedVetex <=take the first element from unvisitedVertexList.
+		//if vertex still have unvisited edges.
+		if (unvisitedVertex.degree > 0) {
+
+		Store the unvisited vertex current Node and previous Node and find a cycle
+		Starting from unvisited Vertex. Attach the tour generated between previous 
+		Node and current Node.
+
+	}
+	Remove the first vertex from the list.
+	}
+
+
+
+} end EULER;
+
+
+
+(2) Verify tour is used for verifying whether the tour is a valid one or not. 
+We will verify the continuity by checking whether the adjacent edges will have common vertices or not.
+Also it is required that  the number of edges in the doubly linked list should be equal to the number of edges in the input file.
+
+verifyTour(Graph g, Node doublyLinkedList, Vertex start){
+	Node<Edge> head <= head of doublyLinkedList ;  
+	//retrieve the first and second edges from the doubly linked list.
+	Edge firstEdge = head.data;
+	Edge secondEdge = head.nextNode.data;
+	 
+	//Find common vertices among adjacent edges. And then find the other end of second edge.
+	//That will be the next common vertex. Return false if no common vertex is found.
+	Vertex nextCommon=secondEdge.otherEnd(commonVertex)
+
+	//Increment the head pointer
+	head <= head.nextNode
+
+	//Find the subsequent edges
+	firstEdge <= head.data
+	secondEdge <= head.nextNode.data
+	while (null != firstEdge && null != secondEdge) {
+	   
+		//find the next common vertices between edges.
+		//Increment the head pointer
+		// Find the subsequent edges
+		//return false if no common pointer is found.
+	}
+	 
+	//if the circuit is Euler then need to check if there is common vertex between the last edge and
+	//first edge.
+	 
+	Integer size = size(doublyLinkedList);
+	 
+	//check size of doubly linked list and number of edges.
+	//if size is not same then return false else return true
+
+
+Test results 
+------------
+Case 1)
+======
+Sample Input:-
+-------------
+Sample input consisting of 6 vertex and 10 edges.
+6 10
+1 2 1
+2 3 1
+5 2 1
+3 6 1
+6 1 1
+4 3 1
+4 5 1
+6 5 1
+2 6 1
+3 5 1
+ 
+Sample Output:-
+--------------
+Graph is Eulerian
+Time taken for finding the tour: 4 msec.
+Edges are:- 
+(1,2)
+(5,2)
+(4,5)
+(4,3)
+(3,5)
+(6,5)
+(2,6)
+(2,3)
+(3,6)
+(6,1)
+
+Case 2)
+======
+For the big input with  5249924 edges and 500000 vertices.
+The running time 5563 milli seconds.
+
+Case 3)
+======
+For the big input with   5506 edges and 1000 vertices.
+The running time 20 milli seconds.
+ 
+Case 4)
+======
+Find Euler path in a Graph with 5 vertices and 8 edges.
+Sample Input:-
+------------
+5 8 
+1 2 1
+1 3 1
+1 4 1
+2 3 1
+3 4 1
+3 5 1
+4 5 1
+2 4 1
+Sample Output:-
+--------------
+Graph has an Eulerian Path between vertices 1 and  2.
+Time: 0 msec.
+(1,2)
+(1,3)
+(3,4)
+(4,5)
+(3,5)
+(2,3)
+(2,4)
+(1,4)
+  
+Case 5)
+=======
+Graph which is not Euler.
+Sample Input:-
+------------
+5 4
+1 3 1
+2 3 1
+3 5 1
+2 4 1
+Sample Output:-
+-------------- 
+Graph is not Eulerian.  It has 4 vertices of odd degree.
+
+Discussion of results
+---------------------
+It is found that it took around 5.6 seconds to complete the Euler tour on graph with 5249924 edges and 500000 vertices. 
+For graph with 5506 edges and 1000 vertices it took 20 milliseconds. From these results it is found that our code is following O(E) running time.
+
+Conclusion
+----------
+It is found that the our implementation of Hierholzer's algorithm is working in O(E) running time.
+Our implementation uses Doubly linked list to store the edges in the graph.
+
+References
+----------
+https://en.wikipedia.org/wiki/Eulerian_path.
+http://people.cis.ksu.edu/~sathish/Eulertour.pdf
